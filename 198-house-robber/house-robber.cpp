@@ -75,10 +75,10 @@ class Solution {
 private:
     int f(vector<int>& nums, int n, vector<int>& dp){
 
-        for(int i=1;i<=n;i++){
-            int take = nums[i-1];
+        for(int i=2;i<=n;i++){
+            int take = nums[i-1]+dp[i-2];
 
-            if(i-2>=0) take+=dp[i-2];
+            // if(i-2>=0) take+=dp[i-2];
 
             int notTake = dp[i-1];
 
@@ -92,6 +92,7 @@ public:
     int rob(vector<int>& nums) {
         int n=nums.size();
         vector<int>dp (n+1 , 0);
+        dp[1]=nums[0];
         return f(nums, nums.size(), dp);
 
 
