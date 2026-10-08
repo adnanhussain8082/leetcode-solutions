@@ -71,29 +71,63 @@
 
 
 
+// class Solution {
+// private:
+//     int f(vector<int>& nums, int n, vector<int>& dp){
+
+//         for(int i=2;i<=n;i++){
+//             int take = nums[i-1]+dp[i-2];
+
+//             // if(i-2>=0) take+=dp[i-2];
+
+//             int notTake = dp[i-1];
+
+//             dp[i] = max(take, notTake);
+//         }
+
+//         return dp[n];
+
+//     }
+// public:
+//     int rob(vector<int>& nums) {
+//         int n=nums.size();
+//         vector<int>dp (n+1 , 0);
+//         dp[1]=nums[0];
+//         return f(nums, nums.size(), dp);
+
+
+//     }
+// };
+
+
+
+
+
+
 class Solution {
 private:
-    int f(vector<int>& nums, int n, vector<int>& dp){
+    int f(vector<int>& nums, int n){
+        int prev2 = 0;
+        int prev = nums[0];
 
         for(int i=2;i<=n;i++){
-            int take = nums[i-1]+dp[i-2];
+            int take = nums[i-1]+prev2;
 
-            // if(i-2>=0) take+=dp[i-2];
+            int notTake = prev;
 
-            int notTake = dp[i-1];
+            int curr = max(take, notTake);
 
-            dp[i] = max(take, notTake);
+            prev2=prev;
+            prev=curr;
         }
 
-        return dp[n];
+        return prev;
 
     }
 public:
     int rob(vector<int>& nums) {
         int n=nums.size();
-        vector<int>dp (n+1 , 0);
-        dp[1]=nums[0];
-        return f(nums, nums.size(), dp);
+        return f(nums, nums.size());
 
 
     }
